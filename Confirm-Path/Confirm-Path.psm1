@@ -40,7 +40,7 @@ Import-Module Join-Paths
     Resolve-Path
 #>
 function Confirm-Path {
-    [OutputType([string])]
+    [OutputType([Management.Automation.PathInfo])]
     [CmdletBinding(DefaultParameterSetName = "File")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
