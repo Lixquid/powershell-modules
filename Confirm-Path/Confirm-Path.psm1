@@ -58,7 +58,7 @@ function Confirm-Path {
     process {
         if ($null -ne $Path) {
             foreach ($fragment in $Path) {
-                if ($null -eq $path) {
+                if ($null -eq $testpath) {
                     $testpath = $fragment
                 }
                 else {
