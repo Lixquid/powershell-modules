@@ -1,5 +1,5 @@
-. ..\Testing-Toolchain-Setup.ps1
-Import-Module ..\Resolve-Error -Force
+. .\_Setup.ps1
+Import-Module Resolve-Error -Force
 
 Describe "Resolve-Error" {
     It "Given an Error Record, prints invocation info" {

@@ -1,5 +1,5 @@
-. ..\Testing-Toolchain-Setup.ps1
-Import-Module ..\Join-Paths -Force
+. .\_Setup.ps1
+Import-Module Join-Paths -Force
 
 Describe "Join-Paths" {
     It "Given a single argument, returns the fragment" {

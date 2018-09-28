@@ -1,5 +1,5 @@
-. ..\Testing-Toolchain-Setup.ps1
-Import-Module ..\Confirm-Path -Force
+. .\_Setup.ps1
+Import-Module Confirm-Path -Force
 
 Describe "Confirm-Path" {
     # Setup

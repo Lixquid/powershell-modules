@@ -1,4 +1,4 @@
-. ..\Testing-Toolchain-Setup.ps1
+. .\_Setup.ps1
 Import-Module Remove-DirectoryContents -Force
 
 Describe "Remove-DirectoryContents" {
