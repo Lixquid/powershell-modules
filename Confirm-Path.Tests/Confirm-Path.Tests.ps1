@@ -6,15 +6,23 @@ Describe "Confirm-Path" {
     New-Item -ItemType File -Path TestDrive:\file.txt -Value "File Contents"
     New-Item -ItemType File -Path TestDrive:\file.xml -Value "<root>Valid XML</root>"
     New-Item -ItemType Directory -Path TestDrive:\directory
+    New-Item -ItemType File -Path TestDrive:\directory\subfile.txt
 
-    It "Given a file path, doesn't except" {
-        Confirm-Path TestDrive:\file.txt
+    It "Given a file path, doesn't except or return" {
+        Confirm-Path TestDrive:\file.txt | Should -BeNullOrEmpty
     }
     It "Given a directory and -IsDirectory, doesn't except" {
         Confirm-Path TestDrive:\directory -IsDirectory
     }
     It "Given an xml path and -IsXml, doesn't except" {
         Confirm-Path TestDrive:\file.xml -IsXml
+    }
+
+    It "Given a local path and -PassThru, returns a resolved path" {
+        Push-Location
+        cd TestDrive:\directory
+        (Confirm-Path subfile.txt -PassThru).Path | Should -Be (Resolve-Path subfile.txt).Path
+        Pop-Location
     }
 
     It "Given an invalid path, excepts" {

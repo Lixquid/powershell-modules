@@ -7,8 +7,7 @@ Import-Module Join-Paths
     Confirms if a path is a valid item.
 .DESCRIPTION
     This method will confirm the path can resolve and the file can be read
-    from. After running this function, it is safe to manipulate the returned
-    path.
+    from. After running this function, it is safe to manipulate the path.
 .PARAMETER Path
     Mandatory.
     Accepts Pipeline Input.
@@ -34,8 +33,9 @@ Import-Module Join-Paths
 
     Checks that a folder exists in the current directory called "Temp".
 .OUTPUTS
-    The resolved path that is tested. An exception is thrown if confirmation
-    fails.
+    If -PassThru is set, the resolved path that is tested. Otherwise,
+    nothing.
+    An exception is thrown if confirmation fails.
 .LINK
     Resolve-Path
 #>
@@ -50,7 +50,9 @@ function Confirm-Path {
         [switch] $IsDirectory,
 
         [Parameter(ParameterSetName = "File")]
-        [switch] $IsXml
+        [switch] $IsXml,
+
+        [switch] $PassThru
     )
     begin {
         Get-CallerPreference -Cmdlet $PSCmdlet -SessionState $ExecutionContext.SessionState
@@ -104,7 +106,9 @@ function Confirm-Path {
                 }
             }
         }
-        return $testpath
+        if ($PassThru) {
+            return $testpath
+        }
     }
 }
 Export-ModuleMember -Function Confirm-Path
