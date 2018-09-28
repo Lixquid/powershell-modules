@@ -8,11 +8,11 @@
     not enough information; useful diagnostic information such as the
     invocation info and the inner exception(s) is hidden. Resolve-Error will
     pretty-print all of this information in an Error Record.
-.PARAMETER ErrorRecords
+.PARAMETER ErrorRecord
     Mandatory.
     Accepts Pipeline Input.
 
-    The list of Error Records to process.
+    The Error Record(s) to process.
 .EXAMPLE
     Resolve-Error $Error[0]
 
@@ -34,18 +34,18 @@ function Resolve-Error {
     [OutputType([string])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
-        [Management.Automation.ErrorRecord[]] $ErrorRecords
+        [Management.Automation.ErrorRecord[]] $ErrorRecord
     )
     begin {
         $output = ""
     }
     process {
-        foreach ($errorRecord in $ErrorRecords) {
+        foreach ($record in $ErrorRecord) {
             $output += "== Exception ==================================================================="
-            $output += ($errorRecord | Format-List * -Force | Out-String) + "`n"
+            $output += ($record | Format-List * -Force | Out-String) + "`n"
             $output += "== Invocation Info ==============================="
-            $output += ($errorRecord.InvocationInfo | Format-List * | Out-String) + "`n"
-            $exception = $errorRecord.Exception
+            $output += ($record.InvocationInfo | Format-List * | Out-String) + "`n"
+            $exception = $record.Exception
             for ($i = 1; $exception; $i++, ($exception = $exception.InnerException)) {
                 $output += "== Inner Exception $i ============================="
                 $output += (($exception | Format-List * -Force | Out-String) -replace "`n", "`n    ") + "`n"

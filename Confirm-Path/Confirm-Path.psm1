@@ -9,7 +9,7 @@ Import-Module Join-Paths
     This method will confirm the path can resolve and the file can be read
     from. After running this function, it is safe to manipulate the returned
     path.
-.PARAMETER Paths
+.PARAMETER Path
     Mandatory.
     Accepts Pipeline Input.
 
@@ -44,7 +44,7 @@ function Confirm-Path {
     [CmdletBinding(DefaultParameterSetName = "File")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
-        [string[]] $Paths,
+        [string[]] $Path,
 
         [Parameter(ParameterSetName = "Directory")]
         [switch] $IsDirectory,
@@ -56,43 +56,43 @@ function Confirm-Path {
         Get-CallerPreference -Cmdlet $PSCmdlet -SessionState $ExecutionContext.SessionState
     }
     process {
-        if ($null -ne $Paths) {
-            foreach ($fragment in $Paths) {
+        if ($null -ne $Path) {
+            foreach ($fragment in $Path) {
                 if ($null -eq $path) {
-                    $path = $fragment
+                    $testpath = $fragment
                 }
                 else {
-                    $path = Join-Path $path $fragment
+                    $testpath = Join-Path $testpath $fragment
                 }
             }
         }
     }
     end {
-        if ($null -eq $path) {
+        if ($null -eq $testpath) {
             throw "No path given"
         }
         try {
-            $path = Resolve-Path -Path $path -ErrorAction Stop
+            $testpath = Resolve-Path -Path $testpath -ErrorAction Stop
         }
         catch {
-            throw "Cannot resolve path $($path):`n$($_.Exception)"
+            throw "Cannot resolve path $($testpath):`n$($_.Exception)"
         }
 
         if ($IsDirectory) {
-            if (-not (Test-Path -LiteralPath $path -PathType Container)) {
-                throw "Directory does not exist: $path"
+            if (-not (Test-Path -LiteralPath $testpath -PathType Container)) {
+                throw "Directory does not exist: $testpath"
             }
         }
         else {
-            if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
-                throw "File does not exist: $path"
+            if (-not (Test-Path -LiteralPath $testpath -PathType Leaf)) {
+                throw "File does not exist: $testpath"
             }
 
             try {
-                [string] $output = Get-Content -LiteralPath $path
+                [string] $output = Get-Content -LiteralPath $testpath
             }
             catch {
-                throw "File cannot be read from $($path):`n$($_.Exception)"
+                throw "File cannot be read from $($testpath):`n$($_.Exception)"
             }
 
             if ($IsXml) {
@@ -100,11 +100,11 @@ function Confirm-Path {
                     [xml] $output > $null
                 }
                 catch {
-                    throw "File is not a valid XML File $($path):`n$($_.Exception)"
+                    throw "File is not a valid XML File $($testpath):`n$($_.Exception)"
                 }
             }
         }
-        return $path
+        return $testpath
     }
 }
 Export-ModuleMember -Function Confirm-Path
