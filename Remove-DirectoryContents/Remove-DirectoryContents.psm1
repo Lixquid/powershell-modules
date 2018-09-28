@@ -30,7 +30,7 @@ function Remove-DirectoryContents {
     [OutputType([void])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
-        [string[]] $Paths,
+        [string[]] $Path,
 
         [switch] $AndRemoveParent
     )
@@ -38,15 +38,18 @@ function Remove-DirectoryContents {
         Get-CallerPreference -Cmdlet $PSCmdlet -SessionState $ExecutionContext.SessionState
     }
     process {
-        foreach ($path in $Paths) {
-            $path = Confirm-Path $path -IsDirectory -PassThru
+        if ($null -eq $Path) {
+            return
+        }
+        foreach ($subpath in $Path) {
+            $subpath = Confirm-Path $subpath -IsDirectory -PassThru
             # Filter on PSIsContainer for Powershell v2 compatability
-            Get-Childitem $path -Recurse | Where-Object {
+            Get-Childitem $subpath -Recurse | Where-Object {
                 -not $_.PSIsContainer
             } | Remove-Item -Force
-            Get-ChildItem $path -Recurse | Where-Object { $_.PSIsContainer } | Remove-Item -Force -Recurse
+            Get-ChildItem $subpath -Recurse | Where-Object { $_.PSIsContainer } | Remove-Item -Force -Recurse
             if ($AndRemoveParent) {
-                Remove-Item $path
+                Remove-Item $subpath
             }
         }
     }
