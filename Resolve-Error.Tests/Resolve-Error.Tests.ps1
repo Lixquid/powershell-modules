@@ -1,3 +1,4 @@
+. ..\Testing-Toolchain-Setup.ps1
 Import-Module ..\Resolve-Error -Force
 
 Describe "Resolve-Error" {

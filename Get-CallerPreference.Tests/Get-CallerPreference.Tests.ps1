@@ -1,3 +1,4 @@
+. ..\Testing-Toolchain-Setup.ps1
 Import-Module ..\Get-CallerPreference -Force
 Import-Module .\Get-CallerPreference.Tests.Util.psm1 -Force
 
