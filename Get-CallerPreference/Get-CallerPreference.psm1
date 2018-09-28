@@ -54,7 +54,7 @@ function Get-CallerPreference {
     [OutputType([void])]
     param (
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ $_.GetType().FullName -ieq "System.Management.Automation.PSScriptCmdlet"})]
+        [ValidateScript( { $_.GetType().FullName -ieq "System.Management.Automation.PSScriptCmdlet" } )]
         $Cmdlet,
 
         [Parameter(Mandatory = $true)]
@@ -80,38 +80,38 @@ function Get-CallerPreference {
     end {
         if ($PSCmdlet.ParameterSetName -eq "None" -or $IncludeDefault) {
             $defaultVariables = @{
-                ErrorView = $null
-                FormatEnumerationLimit = $null
-                LogCommandHealthEvent = $null
-                LogCommandLifecycleEvent = $null
-                LogEngineHealthEvent = $null
-                LogEngineLifecycleEvent = $null
-                LogProviderLifecycleEvent = $null
-                LogProviderHealthEvent = $null
-                MaximumAliasCount = $null
-                MaximumDriveCount = $null
-                MaximumErrorCount = $null
-                MaximumFunctionCount = $null
-                MaximumHistoryCount = $null
-                MaximumVariableCount = $null
-                OFS = $null
-                OutputEncoding = $null
-                ProgressPreference = $null
-                PSDefaultParameterValues = $null
-                PSEmailServer = $null
-                PSModuleAutoLoadingPreference= $null
-                PSSessionApplicationName = $null
-                PSSessionConfigurationName = $null
-                PSSessionOption = $null
+                ErrorView                     = $null
+                FormatEnumerationLimit        = $null
+                LogCommandHealthEvent         = $null
+                LogCommandLifecycleEvent      = $null
+                LogEngineHealthEvent          = $null
+                LogEngineLifecycleEvent       = $null
+                LogProviderLifecycleEvent     = $null
+                LogProviderHealthEvent        = $null
+                MaximumAliasCount             = $null
+                MaximumDriveCount             = $null
+                MaximumErrorCount             = $null
+                MaximumFunctionCount          = $null
+                MaximumHistoryCount           = $null
+                MaximumVariableCount          = $null
+                OFS                           = $null
+                OutputEncoding                = $null
+                ProgressPreference            = $null
+                PSDefaultParameterValues      = $null
+                PSEmailServer                 = $null
+                PSModuleAutoLoadingPreference = $null
+                PSSessionApplicationName      = $null
+                PSSessionConfigurationName    = $null
+                PSSessionOption               = $null
 
                 # These preference variables can be overridden by switches
-                ConfirmPreference = "Confirm"
-                VerbosePreference = "Verbose"
-                InformationPreference = "InformationAction"
-                WarningPreference = "WarningAction"
-                DebugPreference = "Debug"
-                ErrorActionPreference = "ErrorAction"
-                WhatIfPreference = "WhatIf"
+                ConfirmPreference             = "Confirm"
+                VerbosePreference             = "Verbose"
+                InformationPreference         = "InformationAction"
+                WarningPreference             = "WarningAction"
+                DebugPreference               = "Debug"
+                ErrorActionPreference         = "ErrorAction"
+                WhatIfPreference              = "WhatIf"
             }
             foreach ($var in $defaultVariables.GetEnumerator()) {
                 if ($variablesToImport.ContainsKey($var.Key)) { continue }

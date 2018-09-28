@@ -1,11 +1,11 @@
-Remove-Module Resolve-Error -ErrorAction SilentlyContinue
-Import-Module ..\Resolve-Error
+Import-Module ..\Resolve-Error -Force
 
 Describe "Resolve-Error" {
     It "Given an Error Record, prints invocation info" {
         try {
             NonExistentFunction
-        } catch {
+        }
+        catch {
             $e = Resolve-Error $Error[0]
             # Invocation Info
             $e | Should -BeLike "*Invocation Info*"
