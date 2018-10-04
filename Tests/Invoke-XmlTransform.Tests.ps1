@@ -32,14 +32,14 @@ Describe "Invoke-XmlTransform" {
         $doc = Invoke-XmlTransform -DocumentPath (Join-Path $TestDrive doc.xml) -TransformPath (Join-Path $TestDrive transform.xml)
         $doc.root | Should -Not -BeNullOrEmpty
         $doc.root.a | Should -Be Changed
-        $doc.root.b | Should -BeNullOrEmpty
+        $doc.root.PSObject.Properties['b'] | Should -BeNullOrEmpty
         $doc.root.c.added | Should -Be InnerText
     }
     It "Given document and transform, transforms the document" {
         $doc = Invoke-XmlTransform -DocumentPath (Join-Path $TestDrive doc.xml) -Transform $transformXml
         $doc.root | Should -Not -BeNullOrEmpty
         $doc.root.a | Should -Be Changed
-        $doc.root.b | Should -BeNullOrEmpty
+        $doc.root.PSObject.Properties['b'] | Should -BeNullOrEmpty
         $doc.root.c.added | Should -Be InnerText
     }
 }

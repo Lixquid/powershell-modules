@@ -4,3 +4,6 @@ $private:modulePath = (Get-Item $PSCommandPath).Directory.Parent.FullName
 if ($env:PSModulePath -split ";" -inotcontains $private:modulePath) {
     $env:PSModulePath += ";$private:modulePath"
 }
+
+# Enables strict mode
+Set-StrictMode -Version Latest
