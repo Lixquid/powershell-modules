@@ -38,9 +38,11 @@ function Move-DirectoryContents {
     [OutputType([Management.Automation.PathInfo])]
     param (
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string] $Path,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string] $Destination,
 
         [switch] $PassThru

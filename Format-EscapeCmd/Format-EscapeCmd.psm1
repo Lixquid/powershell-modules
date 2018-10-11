@@ -24,6 +24,7 @@ function Format-EscapeCmd {
     [OutputType([string[]])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [ValidateNotNull()]
         [string[]] $In
     )
     begin {
@@ -31,7 +32,6 @@ function Format-EscapeCmd {
         $output = @()
     }
     process {
-        if ($null -eq $In) { return }
         foreach ($segment in $In) {
             if (-not $segment.Contains(' ') -and -not $segment.Contains('"')) {
                 $output += $segment

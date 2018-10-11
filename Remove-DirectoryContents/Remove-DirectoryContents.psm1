@@ -30,6 +30,7 @@ function Remove-DirectoryContents {
     [OutputType([void])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [ValidateNotNull()]
         [string[]] $Path,
 
         [switch] $AndRemoveParent

@@ -34,6 +34,7 @@ function Resolve-Error {
     [OutputType([string])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [ValidateNotNull()]
         [Management.Automation.ErrorRecord[]] $ErrorRecord
     )
     begin {

@@ -20,6 +20,7 @@ Import-Module Get-CallerPreference
 function Write-Log {
     param (
         [Parameter(ValueFromPipeline = $true)]
+        [ValidateNotNull()]
         [string[]] $Message = "",
 
         [ValidateSet("INFO", "WARN", "ERROR")]

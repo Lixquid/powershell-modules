@@ -44,6 +44,7 @@ function Confirm-Path {
     [CmdletBinding(DefaultParameterSetName = "File")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [ValidateNotNull()]
         [string[]] $Path,
 
         [Parameter(ParameterSetName = "Directory")]

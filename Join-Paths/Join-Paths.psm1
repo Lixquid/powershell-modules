@@ -35,6 +35,7 @@ function Join-Paths {
     [OutputType([string])]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [ValidateNotNull()]
         [string[]] $Paths
     )
     begin {

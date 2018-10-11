@@ -21,9 +21,11 @@ function Confirm-Xml {
     [OutputType([void])]
     param (
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string] $SchemaPath,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [ValidateNotNull()]
         [string[]] $DocumentPath
     )
     begin {

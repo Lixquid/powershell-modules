@@ -55,12 +55,15 @@ function Get-CallerPreference {
     param (
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_.GetType().FullName -ieq "System.Management.Automation.PSScriptCmdlet" } )]
+        [ValidateNotNull()]
         $Cmdlet,
 
         [Parameter(Mandatory = $true)]
+        [ValidateNotNull()]
         [Management.Automation.SessionState] $SessionState,
 
         [Parameter(ParameterSetName = "Specific", ValueFromPipeline = $true, ValueFromRemainingArguments = $true, Mandatory = $true)]
+        [ValidateNotNull()]
         [string[]] $Variables,
 
         [Parameter(ParameterSetName = "Specific")]

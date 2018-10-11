@@ -34,14 +34,18 @@ function Invoke-XmlTransform {
     [CmdletBinding(DefaultParameterSetName = "Path")]
     param (
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string] $DocumentPath,
 
         [Parameter(Mandatory = $true, ParameterSetName = "Path")]
+        [ValidateNotNullOrEmpty()]
         [string] $TransformPath,
 
         [Parameter(Mandatory = $true, ParameterSetName = "Input")]
+        [ValidateNotNull()]
         [xml] $Transform,
 
+        [ValidateNotNullOrEmpty()]
         [string] $XmlTransformDllPath = (Join-Path $PSScriptRoot Microsoft.Web.XmlTransform.dll)
     )
     Get-CallerPreference -Cmdlet $PSCmdlet -SessionState $ExecutionContext.SessionState

@@ -28,12 +28,15 @@ Import-Module Format-EscapeCmd
 function Invoke-Process {
     param (
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [string] $ProcessName,
 
         [Parameter(ValueFromRemainingArguments = $true)]
+        [ValidateNotNull()]
         [string[]] $Arguments = @(),
 
         [Parameter(ValueFromPipeline = $true)]
+        [ValidateNotNull()]
         [string[]] $StandardInput = @(),
 
         [switch] $IgnoreExitCode
