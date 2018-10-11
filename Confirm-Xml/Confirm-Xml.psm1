@@ -48,7 +48,7 @@ function Confirm-Xml {
             $doc = Confirm-Path $doc -IsXml -PassThru
 
             [xml] $xml = New-Object System.Xml.XmlDocument
-            $xml.Schemas.Add($schema)
+            $xml.Schemas.Add($schema) > $null
             $xml.Load($doc)
             $xml.Validate({
                 param($sender, $eventArgs)
