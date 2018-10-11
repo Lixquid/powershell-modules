@@ -7,19 +7,33 @@
 .DESCRIPTION
     Accessing XML Nodes in Powershell can return either a string or another
     XML node, depending on if the node has wrapped its contents in a CDATA tag.
+.PARAMETER Node
+    Mandatory.
+
+    The node to extract text content from.
+.PARAMETER PreserveWhitespace
+    If set, the node's contents will not be trimmed before being output.
 #>
 function Get-XmlNodeContent {
     param (
         [Parameter(Mandatory = $true)]
-        $Node
+        $Node,
+
+        [switch] $PreserveWhitespace
     )
 
     if ($Node -is [string]) {
-        return $Node
+        $output = $Node
     } elseif ($Node -is [Xml.XmlElement]) {
-        return $Node.InnerText
+        $output = $Node.InnerText
+    } else {
+        throw "Node is not an xml element"
     }
 
-    throw "Node is not an xml element"
+    if ($PreserveWhitespace) {
+        return $output
+    } else {
+        return $output.Trim() -replace "\s+", " "
+    }
 }
 Export-ModuleMember -Function Get-XmlNodeContent
