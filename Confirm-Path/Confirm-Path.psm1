@@ -62,8 +62,7 @@ function Confirm-Path {
             foreach ($fragment in $Path) {
                 if ($null -eq $testpath) {
                     $testpath = $fragment
-                }
-                else {
+                } else {
                     $testpath = Join-Path $testpath $fragment
                 }
             }
@@ -75,8 +74,7 @@ function Confirm-Path {
         }
         try {
             $testpath = Resolve-Path -Path $testpath -ErrorAction Stop
-        }
-        catch {
+        } catch {
             throw "Cannot resolve path $($testpath):`n$($_.Exception)"
         }
 
@@ -84,24 +82,21 @@ function Confirm-Path {
             if (-not (Test-Path -LiteralPath $testpath -PathType Container)) {
                 throw "Directory does not exist: $testpath"
             }
-        }
-        else {
+        } else {
             if (-not (Test-Path -LiteralPath $testpath -PathType Leaf)) {
                 throw "File does not exist: $testpath"
             }
 
             try {
                 [string] $output = Get-Content -LiteralPath $testpath
-            }
-            catch {
+            } catch {
                 throw "File cannot be read from $($testpath):`n$($_.Exception)"
             }
 
             if ($IsXml) {
                 try {
                     [xml] $output > $null
-                }
-                catch {
+                } catch {
                     throw "File is not a valid XML File $($testpath):`n$($_.Exception)"
                 }
             }

@@ -32,8 +32,7 @@ function Write-Log {
         foreach ($msg in $Message) {
             $private:path = if ($WriteLogOutput) {
                 $WriteLogOutput
-            }
-            else {
+            } else {
                 "LogOutput.txt"
             }
 

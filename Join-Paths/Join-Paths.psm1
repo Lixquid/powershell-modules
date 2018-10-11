@@ -45,8 +45,7 @@ function Join-Paths {
             foreach ($path in $Paths) {
                 if ($null -eq $output) {
                     $output = $path
-                }
-                else {
+                } else {
                     $output = Join-Path $output $path
                 }
             }

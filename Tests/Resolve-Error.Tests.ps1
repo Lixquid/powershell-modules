@@ -5,8 +5,7 @@ Describe "Resolve-Error" {
     It "Given an Error Record, prints invocation info" {
         try {
             NonExistentFunction
-        }
-        catch {
+        } catch {
             $e = Resolve-Error $Error[0]
             # Invocation Info
             $e | Should -BeLike "*Invocation Info*"

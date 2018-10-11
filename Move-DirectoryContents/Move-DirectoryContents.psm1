@@ -49,8 +49,7 @@ function Move-DirectoryContents {
     Confirm-Path $Path -IsDirectory
     if ((Test-Path $Destination)) {
         Confirm-Path $Destination -IsDirectory
-    }
-    else {
+    } else {
         $output = New-Item -ItemType Directory -Path $Destination
     }
 

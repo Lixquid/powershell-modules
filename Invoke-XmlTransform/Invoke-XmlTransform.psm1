@@ -57,8 +57,7 @@ function Invoke-XmlTransform {
     $doc.Load($DocumentPath)
     if ($PSCmdlet.ParameterSetName -eq "Path") {
         $transformObject = New-Object Microsoft.Web.XmlTransform.XmlTransformation $TransformPath, $null
-    }
-    else {
+    } else {
         $transformObject = New-Object Microsoft.Web.XmlTransform.XmlTransformation `
             $Transform.OuterXml, $false, $null
     }
