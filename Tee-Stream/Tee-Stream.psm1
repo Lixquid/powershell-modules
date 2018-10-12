@@ -1,4 +1,4 @@
-#requires -Version 4.0
+#requires -Version 2.0
 
 function Tee-Stream {
     param (
@@ -10,22 +10,22 @@ function Tee-Stream {
     )
     process {
         foreach ($obj in $InputArray) {
-            if ("Output" -in $OutputStreams) {
-                Write-output $obj
+            if ($OutputStreams -contains "Output") {
+                Write-Output $obj
             }
-            if ("Error" -in $OutputStreams) {
+            if ($OutputStreams -contains "Error") {
                 Write-Error $obj
             }
-            if ("Warning" -in $OutputStreams) {
+            if ($OutputStreams -contains "Warning") {
                 Write-Warning $obj
             }
-            if ("Verbose" -in $OutputStreams) {
+            if ($OutputStreams -contains "Verbose") {
                 Write-Verbose $obj
             }
-            if ("Debug" -in $OutputStreams) {
+            if ($OutputStreams -contains "Debug") {
                 Write-Debug $obj
             }
-            if ("Information" -in $OutputStreams) {
+            if ($OutputStreams -contains "Information") {
                 Write-Information $obj
             }
         }
