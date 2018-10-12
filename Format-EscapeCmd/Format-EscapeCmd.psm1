@@ -16,7 +16,7 @@ Import-Module Get-CallerPreference
 .EXAMPLE
     Format-EscapeCmd -In 'value "with quotes"'
 
-    Returns: "value \"with quotes\""
+    Returns: "value """with quotes""""
 .OUTPUTS
     A collection of escaped string(s)
 #>
@@ -37,7 +37,7 @@ function Format-EscapeCmd {
                 $output += $segment
                 continue
             }
-            $output += ('"' + $segment.Replace('\', '\\').Replace('"', '\"') + '"')
+            $output += ('"' + $segment.Replace('\', '\\').Replace('"', '"""') + '"')
         }
     }
     end {

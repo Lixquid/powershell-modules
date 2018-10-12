@@ -11,7 +11,7 @@ Describe "Format-EscapeCmd" {
         Format-EscapeCmd "1 2,3" | Should -Be '"1 2,3"'
     }
     It "Given input with quotes, escapes the quotes" {
-        Format-EscapeCmd '"a"' | Should -Be '"\"a\""'
-        Format-EscapeCmd '"a b"' | Should -Be '"\"a b\""'
+        Format-EscapeCmd '"a"' | Should -Be '""""a""""'
+        Format-EscapeCmd '"a b"' | Should -Be '""""a b""""'
     }
 }
