@@ -22,6 +22,12 @@ Describe "Remove-DirectoryContents" {
         Test-Path TestDrive:\container | Should -BeFalse
     }
 
+    It "Given a file path and -Exclude, removes everything except the excluded file" {
+        Remove-DirectoryContents TestDrive:\container -Exclude "topfile.txt"
+        Test-Path TestDrive:\container\subfolder | Should -BeFalse
+        Test-Path TestDrive:\container\topfile.txt | Should -BeTrue
+    }
+
     It "Given an invalid folder, excepts" {
         {Remove-DirectoryContents TestDrive:\invalid} | Should -Throw
     }

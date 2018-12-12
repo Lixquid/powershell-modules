@@ -13,9 +13,14 @@ Import-Module Confirm-Path
 .PARAMETER Path
     Mandatory.
     Accepts Pipeline Input.
+    Cannot be set with -AndRemoveParent.
 
     The path(s) to remove the contents from.
+.PARAMETER Exclude
+    A list of paths to exclude from being removed.
 .PARAMETER AndRemoveParent
+    Cannot be set with -Exclude.
+
     If set, the containing folder will also be removed.
 .EXAMPLE
     Remove-DirectoryContents -Paths Test
@@ -28,11 +33,16 @@ Import-Module Confirm-Path
 #>
 function Remove-DirectoryContents {
     [OutputType([void])]
+    [CmdletBinding(DefaultParameterSetName = "Exclude")]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
         [ValidateNotNull()]
         [string[]] $Path,
 
+        [Parameter(ParameterSetName = "Exclude")]
+        [string[]] $Exclude = @(),
+
+        [Parameter(ParameterSetName = "AndRemoveParent")]
         [switch] $AndRemoveParent
     )
     begin {
@@ -47,8 +57,8 @@ function Remove-DirectoryContents {
             # Filter on PSIsContainer for Powershell v2 compatability
             Get-Childitem $subpath -Recurse | Where-Object {
                 -not $_.PSIsContainer
-            } | Remove-Item -Force
-            Get-ChildItem $subpath -Recurse | Where-Object { $_.PSIsContainer } | Remove-Item -Force -Recurse
+            } | Remove-Item -Force -Exclude $Exclude
+            Get-ChildItem $subpath -Recurse | Where-Object { $_.PSIsContainer } | Remove-Item -Force -Recurse -Exclude $Exclude
             if ($AndRemoveParent) {
                 Remove-Item $subpath
             }
